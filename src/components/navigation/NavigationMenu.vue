@@ -7,16 +7,25 @@
             </v-list-item-avatar>
           </v-list-item>
 
-          <v-list-item link>
+          <v-list-item link @click="getUtente()">
             <v-list-item-content>
               <v-list-item-title class="text-h6">
                 {{username || 'Username'}}
               </v-list-item-title>
-              <v-list-item-subtitle v-on:click="logout">log out</v-list-item-subtitle>
+              <v-list-item-subtitle>ID: {{idUtente}}</v-list-item-subtitle>
+              
+            </v-list-item-content>
+          </v-list-item>
+
+          <v-list-item>
+            <v-list-item-content>
+               <v-btn elevation="10" v-on:click="logout" color="error">Logout 
+                <v-icon right dark > mdi-logout </v-icon>
+              </v-btn>
             </v-list-item-content>
           </v-list-item>
         </v-list>
-
+     
       <v-divider></v-divider>
 
       <v-list
@@ -54,7 +63,8 @@ import axios from 'axios';
           { title: 'Photos', icon: 'mdi-image' },
           { title: 'About', icon: 'mdi-help-box' },
         ],
-        username:this.$route.params.username
+        username:this.$route.params.username,
+        idUtente:jwt_decode( axios.defaults.headers.common['Authorization'] ).idUtente
       }
     },
     beforeMount(){
@@ -63,7 +73,14 @@ import axios from 'axios';
     },
     methods: {
       logout() {
+        axios.defaults.headers.common['Authorization'] = null;
         this.$router.replace({name:'login'})
+      },
+      getUtente() {
+        var url = 'user/'+this.idUtente;
+        axios.get(url)
+        .then(res => console.log(res.data))
+        .catch(err => console.log(err));
       }
     }
   }
