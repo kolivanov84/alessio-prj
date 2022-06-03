@@ -12,7 +12,7 @@
                      <v-card-text>
                      <form ref="form" @submit.prevent="login()">
                             <v-text-field
-                              v-model="username"
+                              v-model="loginRequest.username"
                               name="username"
                               label="Username"
                               type="text"
@@ -21,7 +21,7 @@
                            ></v-text-field>
                            
                             <v-text-field
-                              v-model="password"
+                              v-model="loginRequest.password"
                               name="password"
                               label="Password"
                               type="password"
@@ -40,20 +40,38 @@
    </v-app>
 </template>
 
+
+
 <script>
+import axios from 'axios';
+
 export default {
   name: "Login",
-  data() {
-    return {
-      username: "",
-      password: "",
-    };
+  data () {
+    return  {
+       loginRequest:{ 
+          username: "",
+          password: ""
+         }
+    }
   },
   methods: {
    login() {
-    const { username } = this;
-    this.$router.replace({ name: "dashboard", params:{ username: username} });
+    var url = "auth/login"
+    var payload = this.loginRequest;
+    axios.post(url,payload)
+    .then((response) => {
+
+         console.log("Login Success");
+
+         //setto il token di autenticazione nelle variabili di axios
+         axios.defaults.headers.common['Authorization'] = response;
+
+         const { loginRequest } = this;
+         this.$router.replace({ name: "dashboard", params:{ username: loginRequest.username} });
+      })
+    .catch(err => console.log("Login error: "+err));
     }
-  },
+  }
 };
 </script>
