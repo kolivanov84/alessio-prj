@@ -65,7 +65,7 @@ export default {
          console.log("Login Success");
 
          //setto il token di autenticazione nelle variabili di axios
-         axios.defaults.headers.common['Authorization'] = response;
+         axios.defaults.headers.common['Authorization'] = response.data;
 
          const { loginRequest } = this;
          this.$router.replace({ name: "dashboard", params:{ username: loginRequest.username} });

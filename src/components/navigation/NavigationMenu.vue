@@ -3,7 +3,7 @@
         <v-list>
           <v-list-item class="px-2">
             <v-list-item-avatar>
-              <v-img src="https://randomuser.me/api/portraits/women/85.jpg"></v-img>
+              <v-img src="@/assets/profile-icon.png"></v-img>
             </v-list-item-avatar>
           </v-list-item>
 
@@ -41,9 +41,14 @@
 </template>
 
 <script>
+import jwt_decode from "jwt-decode";
+import axios from 'axios';
+
   export default {
     data () {
       return {
+        tokenDecoded : jwt_decode( axios.defaults.headers.common['Authorization'] ),
+        token: axios.defaults.headers.common['Authorization'],
         items: [
           { title: 'Dashboard', icon: 'mdi-view-dashboard' },
           { title: 'Photos', icon: 'mdi-image' },
@@ -51,6 +56,10 @@
         ],
         username:this.$route.params.username
       }
+    },
+    beforeMount(){
+      console.log(this.token);
+      console.log(this.tokenDecoded.idUtente);
     },
     methods: {
       logout() {
