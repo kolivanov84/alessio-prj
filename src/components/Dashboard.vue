@@ -1,24 +1,32 @@
 <template>
-<v-app>
-    <!--v-app-bar color="primary" dark fixed app-->
-    <v-toolbar color="primary" dark fixed app>
-        <v-toolbar-title>Application di Alessio</v-toolbar-title>
-    </v-toolbar>
-    <!--/v-app-bar-->
-    <navigation-menu></navigation-menu>
-    <div id="content">
-
-    </div>
+<v-app id="inspire">
+       
+        <NavigationMenu></NavigationMenu>
+    
+        <v-app-bar app>
+           
+                <v-toolbar color="primary" dark fixed app>
+                    <v-toolbar-title>Application di Alessio</v-toolbar-title>
+                </v-toolbar>
+        </v-app-bar>
+       
+        <v-main>
+            <router-view></router-view>
+        </v-main>
+            
+        
 </v-app>
 </template>
 
 <script>
 import NavigationMenu from '@/components/navigation/NavigationMenu.vue'
 
+
 export default {
     name: 'dashboard',
     components: {
         NavigationMenu
     }
+   
 }
 </script>

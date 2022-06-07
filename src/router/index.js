@@ -17,13 +17,16 @@ export default new Router({
       path: '/dashboard',
       name: 'dashboard',
       component: Dashboard,
-      props: {}
+      props: {},
+      children: [
+        {
+          path: '/category',
+          name: 'category',
+          component: Category,
+          props: {}
+        }
+      ]
     },
-    {
-      path: '/category',
-      name: 'category',
-      component: Category,
-      props: {}
-    }
+    
   ]
 })
