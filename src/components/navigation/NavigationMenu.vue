@@ -60,7 +60,7 @@ import axios from 'axios';
         token: axios.defaults.headers.common['Authorization'],
         items: [
           { title: 'Dashboard', icon: 'mdi-view-dashboard' },
-          { title: 'Photos', icon: 'mdi-image' },
+          { title: 'Categorie', icon: 'mdi-view-sequential' },
           { title: 'About', icon: 'mdi-help-box' },
         ],
         username:this.$route.params.username,

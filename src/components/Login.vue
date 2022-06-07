@@ -30,6 +30,7 @@
                            ></v-text-field>
                            <v-btn type="submit" class="mt-4" color="primary" value="log in">Login</v-btn>
                       </form>
+                      <loader :loading="loading" loaderText="Loading ..." ></loader>
                      </v-card-text>
                   </v-card>
                 
@@ -44,11 +45,16 @@
 
 <script>
 import axios from 'axios';
+import loader from '@/components/util/Loader';
 
 export default {
+  components:{
+     loader
+  },
   name: "Login",
   data () {
     return  {
+       loading : false,
        loginRequest:{ 
           username: "",
           password: ""
@@ -57,6 +63,8 @@ export default {
   },
   methods: {
    login() {
+    this.loading = true;
+    console.log('LOADER = '+this.loading);
     var url = "auth/login"
     var payload = this.loginRequest;
     axios.post(url,payload)
@@ -68,9 +76,13 @@ export default {
          axios.defaults.headers.common['Authorization'] = 'Bearer'+response.data;
 
          const { loginRequest } = this;
+         this.loading = false;
          this.$router.replace({ name: "dashboard", params:{ username: loginRequest.username} });
       })
-    .catch(err => console.log("Login error: "+err));
+    .catch((error) =>{
+       console.log(error);
+       this.loading = false;
+    });
     }
   }
 };
