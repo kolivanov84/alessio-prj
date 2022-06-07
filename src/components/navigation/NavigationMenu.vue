@@ -28,23 +28,8 @@
      
       <v-divider></v-divider>
 
-      <v-list
-        dense
-        nav
-      >
-        <v-list-item
-          v-for="item in items"
-          :key="item.title"
-          link
-        >
-          <v-list-item-icon>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-icon>
-
-          <v-list-item-content>
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
+      <v-list dense nav >
+        <router-link tag="div" class="link" :to="'/category'">Categorie</router-link>
       </v-list>
     </v-navigation-drawer>
 </template>
@@ -60,7 +45,7 @@ import axios from 'axios';
         token: axios.defaults.headers.common['Authorization'],
         items: [
           { title: 'Dashboard', icon: 'mdi-view-dashboard' },
-          { title: 'Categorie', icon: 'mdi-view-sequential' },
+          { title: 'Categorie', icon: 'mdi-view-sequential', page: 'category' },
           { title: 'About', icon: 'mdi-help-box' },
         ],
         username:this.$route.params.username,

@@ -64,7 +64,6 @@ export default {
   methods: {
    login() {
     this.loading = true;
-    console.log('LOADER = '+this.loading);
     var url = "auth/login"
     var payload = this.loginRequest;
     axios.post(url,payload)

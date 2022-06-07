@@ -1,4 +1,5 @@
-import Vue from "vue";
+
+import axios from "axios";
 
 const state = {
     categories:[]
@@ -6,13 +7,6 @@ const state = {
 const getters = {
     getCategories(state){
         return state.categories;
-    },
-    getCategory : (state, getters) => (paramKey) => {
-        if(getters.getCategories){
-
-        }else{
-            return null;
-        }
     }
 };
 const mutations = {
@@ -21,8 +15,12 @@ const mutations = {
     }
 };
 const actions = {
-    fetchCategories(context, payload){
-        console.log(' SEARCH CATEGORIES API')
+    fetchCategories(context){
+        var endpoint = 'category/';
+       axios.get(endpoint).then((res) => {
+           console.log("GET CATEGORIES RESPONSE: "+res.data);
+           context.commit('setCategories', res.data);
+       }).catch(res => console.log(res));
     }
 };
 

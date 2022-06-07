@@ -6,6 +6,9 @@
     </v-toolbar>
     <!--/v-app-bar-->
     <navigation-menu></navigation-menu>
+    <div id="content">
+
+    </div>
 </v-app>
 </template>
 
