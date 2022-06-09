@@ -21,7 +21,25 @@
     class="elevation-1"
     :search="search"
     multi-sort
-  ></v-data-table>
+  >
+  <template v-slot:[`item.actions`]="{ item }">
+     
+     <v-icon
+        small
+        class="mr-2"
+        @click="editItem(item)"
+      >
+        mdi-pencil
+      </v-icon>
+      <v-icon
+        small
+        @click="deleteItem(item)"
+      >
+        mdi-delete
+      </v-icon>
+      
+    </template>
+  </v-data-table>
   </div>
 </template>
 
@@ -33,14 +51,11 @@ import { mapGetters,mapActions } from "vuex";
 export default ({
    data () {
       return {
+         dialog: false,
+         dialogDelete: false,
          search: '',
          headers: [
-          {
-            text: 'Id',
-            align: 'start',
-           
-            value: 'id',
-          },
+          { text: 'Id',  align: 'start', value: 'id'},
           { text: 'Nome', value: 'name' },
           { text: 'Descrizione', value: 'description' },
           { text: 'Actions', value: 'actions', sortable: false },
@@ -51,11 +66,17 @@ export default ({
       this.fetchCategorie();
    },
    computed:{
-   ...mapGetters({
-      'categories' : 'category/getCategories'
-   })
+      formTitle () {
+        return this.editedId === 0 ? 'Nuova Categoria' : 'Modifica Categoria'
+      },
+      ...mapGetters({
+         'categories' : 'category/getCategories'
+      })
    },
    methods: { 
+      editItem (item) {
+       console.log(item);
+      },
       ...mapActions({
       'fetchCategorie' : 'category/fetchCategories'
    })}
